@@ -18,13 +18,29 @@
 
 `timescale 1ns / 100ps
 
-module monitor (
+module monitor(
     //Todo: add ports 
-
+	input rst,
+	input change,
+	input on_off,
+	input clk,
+	output reg [7:0] counter_out
     );
                     
     //Todo: add registers and wires, if needed
 
     //Todo: add user logic
+	always @(posedge clk)
+	begin
+		if(rst)
+			counter_out <= 8'b00000000;
+		else if(change)
+			if(on_off)
+				counter_out <= counter_out + 8'b00000001;
+			else
+				counter_out <= counter_out - 8'b00000001;
+		else
+			counter_out <= counter_out;
+	end
       
 endmodule
