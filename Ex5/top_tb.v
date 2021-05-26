@@ -54,31 +54,41 @@ module top_tb(
 
 //Increase temp
 	initial begin
-	   temp = 5'b10000;
+	   temp = 5'b10001;
 	   forever begin
 		#CLK_PERIOD
-		temp = temp + 5'b00010;
+		temp = temp + 5'b00001;
 		#CLK_PERIOD
-		temp = temp + 5'b00010;
+		temp = temp + 5'b00001;
 		#CLK_PERIOD
-		temp = temp + 5'b00010;
+		temp = temp + 5'b00001;
 		#CLK_PERIOD
-		temp = temp + 5'b00010;
+		temp = temp + 5'b00001;
 		#CLK_PERIOD
-		temp = temp - 5'b00010;
+		temp = temp + 5'b00001;
 		#CLK_PERIOD
-		temp = temp - 5'b00010;
+		temp = temp + 5'b00001;
 		#CLK_PERIOD
-		temp = temp - 5'b00010;
+		temp = temp + 5'b00001;
 		#CLK_PERIOD
-		temp = temp - 5'b00010;
+		temp = temp - 5'b00001;
+		#CLK_PERIOD
+		temp = temp - 5'b00001;
+		#CLK_PERIOD
+		temp = temp - 5'b00001;
+		#CLK_PERIOD
+		temp = temp - 5'b00001;
+		#CLK_PERIOD
+		temp = temp - 5'b00001;
+		#CLK_PERIOD
+		temp = temp - 5'b00001;
 	   end
 	end
 
 //Todo: User logic
      initial begin
 	err=0;
-	#(CLK_PERIOD/8)
+	#(3*CLK_PERIOD/4)
 	forever begin
 	   #CLK_PERIOD
 	   test = ~test;
@@ -99,7 +109,7 @@ module top_tb(
 			$display("***TEST FAILED! after cooling state, cooling should be ON when 20<temp! cooling=%d, heating=%d ***", cooling, heating);
 			err=1;
 			end
-			else if(cooling!=0) begin
+			else if(temp <= 5'b10100 && cooling!=0) begin
 			$display("***TEST FAILED! after cooling state, cooling should be OFF when temp<=20! cooling=%d, heating=%d ***", cooling, heating);
 			err=1;
 			end
@@ -107,7 +117,7 @@ module top_tb(
 			$display("***TEST FAILED! after heating state, heating should be ON when temp<20! cooling=%d, heating=%d ***", cooling, heating);
 			err=1;
 			end
-			else if(heating!=0) begin
+			else if(temp >= 5'b10100 && heating!=0) begin
 			$display("***TEST FAILED! after heating state, heating should be OFF when temp>=20! cooling=%d, heating=%d ***", cooling, heating);
 			err=1;
 			end
@@ -117,7 +127,7 @@ module top_tb(
    
 //Todo: Finish test, check for success
 	initial begin
-        #80
+        #160
         if (err==0)
           $display("***TEST PASSED! :) ***");
         $finish;

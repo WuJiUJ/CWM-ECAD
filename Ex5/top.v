@@ -26,24 +26,48 @@ module aircon(
 	reg [1:0] state = 2'b00;
 
     //Todo: add user logic
-	always @(temp or state) begin
+	always @(posedge clk) begin
 	   case(state)
-		2'b01: begin 
-			heating = 0;
-			cooling = 1;
-			state = (temp > 5'b10100) ? state : 2'b00;
+		2'b01: begin	
+			if(temp > 5'b10100) begin
+				heating = 0;
+				cooling = 1;
+				state = state;
+			end
+			else begin
+				heating = 0;
+				cooling = 0;
+				state = 2'b00;
+			end
 			end
 		2'b00: begin 
-			heating = 0;
-			cooling = 0;
-			state = (temp >= 5'b10110) ? 2'b01 :
-				(temp <= 5'b10010) ? 2'b10 :
-				state;
+			if(temp >= 5'b10110) begin
+				heating = 0;
+				cooling = 1;
+				state = 2'b01;
 			end
-		2'b10: begin 
-			heating = 1;
-			cooling = 0;
-			state = (temp < 5'b10100) ? state : 2'b00;
+			else if(temp <= 5'b10010) begin
+				heating = 1;
+				cooling = 0;
+				state = 2'b10;
+			end
+			else begin
+				heating = 0;
+				cooling = 0;
+				state = state;
+			end
+			end
+		2'b10: begin	
+			if(temp < 5'b10100) begin
+				heating = 1;
+				cooling = 0;
+				state = state;
+			end
+			else begin
+				heating = 0;
+				cooling = 0;
+				state = 2'b00;
+			end
 			end
 	   endcase
 	end
