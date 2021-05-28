@@ -16,11 +16,11 @@ module top_tb(
 
 //Todo: Regitsers and wires
 	reg clk_p;
-	wire clk_n;
 	reg rst_n;
 	reg [4:0] temperature;
 	reg setTemp;
 	reg err;
+	wire clk_n;
 	wire heating;
 	wire cooling;
 
@@ -33,6 +33,7 @@ module top_tb(
 		clk_p = ~clk_p;
 	   end
 	end
+	assign clk_n = ~clk_p;
 
 //Todo: User logic
      initial begin
