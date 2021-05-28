@@ -21,7 +21,7 @@ set_property is_enabled true [get_files ${project_constraints}]
 
 read_verilog "aircon.v"
 read_verilog "top.v"
-#read_verilog "top_tb.v"
+read_verilog "top_tb.v"
 
 update_compile_order -fileset sources_1
 update_compile_order -fileset sim_1
