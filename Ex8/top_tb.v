@@ -6,6 +6,17 @@
 // Description: A testbench module to test Ex8
 // You need to write the whole file
 //////////////////////////////////////////////////////////////////////////////////
+
+//Question after simulation answered
+//1. There are no errors or warnings
+//2. worst case hold time = 0.048ns
+//3. worst case setup time = 8.368ns
+//4. no. of LUT = 9
+//5. no. of FF = 4
+//6. block RAM = 0.0
+//7. expected power consumption = 2.475 W
+//8. synthesis = 3.46 mins, implementation = 14.04 mins
+
 `timescale 1ns / 100ps
 
 module top_tb(
